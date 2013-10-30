@@ -1,0 +1,1 @@
+This is a playground for messing about with the Google Charts API.
