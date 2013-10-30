@@ -18,56 +18,70 @@
       google.load('visualization', '1.0', {'packages':['corechart']});
       
       // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawChart);
+      google.setOnLoadCallback(drawCharts);
 
+      String.prototype.capitalize = function(){
+        return this[0].toUpperCase() + this.slice(1);
+      };
 
       // Callback that creates and populates a data table, 
       // instantiates the pie chart, passes in the data and
       // draws it.
-      function drawChart() {
+      function drawCharts() {
 
-      // Create the data table.
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Topping');
-      data.addColumn('number', 'Slices');
-      data.addRows([
-        ['Mushrooms', 3],
-        ['Onions', 1],
-        ['Olives', 1], 
-        ['Zucchini', 1],
-        ['Pepperoni', 2]
-      ]);
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Mushrooms', 3],
+          ['Onions', 1],
+          ['Olives', 1], 
+          ['Zucchini', 1],
+          ['Pepperoni', 2]
+        ]);
 
-      // Set chart options
-      var options = {
-        'title' : 'How Much Pizza I Ate Last Night',
-        'width' : 400,
-        'height': 250
-      };
+        // Set chart options
+        var options = {
+          'title' : 'How Much Pizza I Ate Last Night',
+          'width' : 400,
+          'height': 250
+        };
 
-      var chart_data = {
-        'Pie': data,
-        'Bar': data,
-        'Column': data,
-      };
+        var charts = {
 
-      // Instantiate and draw our charts, passing in some options.
-      ['Pie', 'Bar', 'Column'].forEach(function(chart_type){
+          'pie': {
+            data: data,
+            options: options
+          },
 
-          chart_type += "Chart";
+          'column': {
+            data: data,
+            options: options
+          },
 
-          // header
-          document.getElementById("charts")
-          .appendChild(document.createElement("h2"))
-          .innerHTML = chart_type;
+          'bar': {
+            data: data,
+            options: options
+          },
 
-          // chart
-          new google.visualization[chart_type](
+        };
+
+        // Build charts
+        ['pie', 'bar', 'column'].forEach(function(type){
+
+            // label
             document.getElementById("charts")
-            .appendChild(document.createElement("div"))
-          ).draw(data, options);
+            .appendChild(document.createElement("h2"))
+            .innerHTML = type.capitalize() + " Chart";
 
-      });
+            // draw
+            new google.visualization[type.capitalize() + "Chart"](
+              document.getElementById("charts")
+              .appendChild(document.createElement("div"))
+            ).draw(charts[type].data, charts[type].options);
+
+        });
     }
     </script>
   </head>
