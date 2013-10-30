@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Google Chart Play</title>
+    <meta charset="utf-8" />
+    <script src="/script/jquery/jquery.js"></script>
+    <script src="https://www.google.com/jsapi"></script>
+    <link rel="stylesheet" href="" />
+    <style>
+      body {
+        background-color: #898;
+        color: #333;
+        font-family: sans-serif;
+      }
+    </style>
+    <script type="text/javascript">
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+
+      // Callback that creates and populates a data table, 
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+      // Create the data table.
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Topping');
+      data.addColumn('number', 'Slices');
+      data.addRows([
+        ['Mushrooms', 3],
+        ['Onions', 1],
+        ['Olives', 1], 
+        ['Zucchini', 1],
+        ['Pepperoni', 2]
+      ]);
+
+      // Set chart options
+      var options = {
+        'title' : 'How Much Pizza I Ate Last Night',
+        'width' : 400,
+        'height': 250
+      };
+
+      var chart_data = {
+        'Pie': data,
+        'Bar': data,
+        'Column': data,
+      };
+
+      // Instantiate and draw our charts, passing in some options.
+      ['Pie', 'Bar', 'Column'].forEach(function(chart_type){
+
+          chart_type += "Chart";
+
+          // header
+          document.getElementById("charts")
+          .appendChild(document.createElement("h2"))
+          .innerHTML = chart_type;
+
+          // chart
+          new google.visualization[chart_type](
+            document.getElementById("charts")
+            .appendChild(document.createElement("div"))
+          ).draw(data, options);
+
+      });
+    }
+    </script>
+  </head>
+
+  <body>
+    <h1>Google Chart Play</h1>
+
+    <!--Div that will hold the pie charts-->
+    <div id="charts"></div>
+
+  </body>
+</html>
