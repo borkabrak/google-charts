@@ -1,12 +1,5 @@
-// Load the Visualization API and the piechart package.
-google.load('visualization', '1.0', {'packages':['corechart']});
-
 // Set a callback to run when the Google Visualization API is loaded.
 google.setOnLoadCallback(drawCharts);
-
-String.prototype.capitalize = function(){
-  return this[0].toUpperCase() + this.slice(1);
-};
 
 var merge = function(obj1, obj2){
   // Return an object with all properties of obj1 and obj2, with obj2 taking
@@ -25,29 +18,48 @@ var merge = function(obj1, obj2){
 
 }
 
+var default_data = {
+
+  columns: [
+    {
+      type: 'string',
+      name: 'Topping',
+    },
+    {
+      type: 'number',
+      name: 'Slices'
+    }
+  ],
+
+  rows: [
+    ['Mushrooms', 3],
+    ['Onions', 1],
+    ['Olives', 1], 
+    ['Zucchini', 1],
+    ['Pepperoni', 2]
+  ]
+
+};
+
+var default_options = {
+  'title' : 'How Much Pizza I Ate Last Night',
+  'width' : 400,
+  'height': 250
+};
 // Callback that creates and populates a data table, 
 // instantiates the pie chart, passes in the data and
 // draws it.
 function drawCharts() {
 
-  // Create the data table.
-  var data = new google.visualization.DataTable();
-  data.addColumn('string', 'Topping');
-  data.addColumn('number', 'Slices');
-  data.addRows([
-      ['Mushrooms', 3],
-      ['Onions', 1],
-      ['Olives', 1], 
-      ['Zucchini', 1],
-      ['Pepperoni', 2]
-      ]);
+  new Chart({
 
-  // Set chart options
-  var options = {
-    'title' : 'How Much Pizza I Ate Last Night',
-    'width' : 400,
-    'height': 250
-  };
+    container: document.getElementById('charts'),
+    data: default_data,
+    options: default_options
+
+  }).draw();
+
+  return;
 
   // Add to this object any additional chart-type-specific data or options
   var charts = {
