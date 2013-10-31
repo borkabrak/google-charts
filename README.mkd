@@ -58,8 +58,9 @@ Load the google chart API:
 Create charts within the callback: 
 
     google.setOnLoadCallback(function {
-    var chart = new Chart(...);
-    chart.draw();
+        var chart = new Chart(...);
+        chart.draw();
+    }
 
 
 [1]: https://google-developers.appspot.com/chart/interactive/docs/reference
