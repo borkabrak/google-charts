@@ -45,7 +45,7 @@ var charts = {
 
 // Go!  Load the google code, and draw the charts!
 google.load('visualization', '1.0', {'packages':['corechart']});
-google.setOnLoadCallback(function drawCharts() {
+google.setOnLoadCallback(function() {
 
   // Build charts of various types
   ['pie', 'bar', 'column', 'line'].forEach(function(type){
