@@ -2,9 +2,7 @@
 CHART
 =====
 
-Make and display data charts using the (Google Chart API)[1].
-
-[1]: https://google-developers.appspot.com/chart/interactive/docs/reference
+Make and display data charts using the [Google Chart API][1].
 
 
 To instantiate:
@@ -60,3 +58,6 @@ SETUP:
     google.setOnLoadCallback(function {
     var chart = new Chart(...);
     chart.draw();
+
+
+[1]: https://google-developers.appspot.com/chart/interactive/docs/reference
