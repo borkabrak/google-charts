@@ -22,40 +22,63 @@ var chart_data = {
 
 };
 
-// Set options per chart type
-var charts = {
+// Specify charts
+var charts = [
 
-  'pie': {
-    title: 'Pizza Pie Chart',
-    is3D: true,
-    legend: 'left',
-  },
+    {
+        type: 'pie',
+        options: {
+            title: 'Regular Pie Chart'
+        }
+    },
 
-  'bar': {
-    title: 'Bar Chart',
-  },
+    {
+        type: 'bar',
+        options: {
+            title: 'Bar Chart',
+        },
+    },
 
-  'column': {
-    title: 'This chart is wide',
-    width: 800,
-  }
+    {
+        type: 'pie',
+        options: {
+            title: '3D Pie Chart',
+            is3D: true,
+            legend: 'left',
+        }
+    },
 
-};
+    {
+        type: 'column',
+        options: {
+            title: 'Wide column chart',
+            width: 833,
+        }
+    },
 
+    {
+        type: 'pie',
+        options: {
+            title: "Donut chart",
+            pieHole: 0.4
+        },
+    },
+
+];
 
 // Go!  Load the google code, and draw the charts!
 google.load('visualization', '1.0', {'packages':['corechart']});
 google.setOnLoadCallback(function() {
 
   // Build charts of various types
-  ['pie', 'bar', 'column', 'line'].forEach(function(type){
+  charts.forEach(function(chart){
 
     new Chart({
 
-      'type': type,
+      'type': chart.type,
       'container': document.getElementById('charts'),
       'data': chart_data,
-      'options': charts[type],
+      'options': chart.options,
 
     }).draw();
 
