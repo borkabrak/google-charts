@@ -1,5 +1,9 @@
 body {
-  background-color: #898;
+  background-color: #565;
   color: #333;
   font-family: sans-serif;
+}
+
+.chart {
+  padding: 1em;
 }

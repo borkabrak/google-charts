@@ -1,24 +1,5 @@
-// Set a callback to run when the Google Visualization API is loaded.
-google.setOnLoadCallback(drawCharts);
-
-var merge = function(obj1, obj2){
-  // Return an object with all properties of obj1 and obj2, with obj2 taking
-  // priority.
-
-  var result = {}
-  for (var j in obj1){
-    result[j] = obj1[j];
-  }
-
-  for (var i in obj2) {
-    result[i] = obj2[i];
-  }
-
-  return result;
-
-}
-
-var default_data = {
+// Specify some data to use for all charts
+var chart_data = {
 
   columns: [
     {
@@ -41,54 +22,43 @@ var default_data = {
 
 };
 
-var default_options = {
-  'title' : 'How Much Pizza I Ate Last Night',
-  'width' : 400,
-  'height': 250
+// Set options per chart type
+var charts = {
+
+  'pie': {
+    title: 'Pizza Pie Chart',
+    is3D: true,
+    legend: 'left',
+  },
+
+  'bar': {
+    title: 'Bar Chart',
+  },
+
+  'column': {
+    title: 'This chart is wide',
+    width: 800,
+  }
+
 };
-// Callback that creates and populates a data table, 
-// instantiates the pie chart, passes in the data and
-// draws it.
-function drawCharts() {
 
-  new Chart({
 
-    container: document.getElementById('charts'),
-    data: default_data,
-    options: default_options
+// Go!  Load the google code, and draw the charts!
+google.load('visualization', '1.0', {'packages':['corechart']});
+google.setOnLoadCallback(function drawCharts() {
 
-  }).draw();
-
-  return;
-
-  // Add to this object any additional chart-type-specific data or options
-  var charts = {
-
-    'pie': {
-      options: { 
-        title: 'Pizza Pie Chart',
-        is3D: true,
-        legend: 'left',
-      }
-    },
-
-  };
-
-  // Build charts
+  // Build charts of various types
   ['pie', 'bar', 'column', 'line'].forEach(function(type){
 
-    // handle nonexistent keys in `charts`
-    charts[type] = merge({}, charts[type]);
+    new Chart({
 
-    // label
-    document.getElementById("charts")
-      .appendChild(document.createElement("h2"))
-      .innerHTML = type.capitalize() + " Chart";
-    // draw
-    new google.visualization[type.capitalize() + "Chart"](
-      document.getElementById("charts")
-      .appendChild(document.createElement("div"))
-    ).draw(merge(data, charts[type].data), merge(options, charts[type].options));
+      'type': type,
+      'container': document.getElementById('charts'),
+      'data': chart_data,
+      'options': charts[type],
+
+    }).draw();
 
   });
-}
+
+});
