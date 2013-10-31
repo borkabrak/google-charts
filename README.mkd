@@ -52,9 +52,11 @@ SETUP:
 ======
 
 * Load the google chart API: 
+
     google.load('visualization', '1.0', {'packages':['corechart']});
 
 * Create charts within the callback: 
+
     google.setOnLoadCallback(function {
     var chart = new Chart(...);
     chart.draw();
