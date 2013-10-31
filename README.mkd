@@ -1,1 +1,62 @@
-This is a playground for messing about with the Google Charts API.
+
+CHART
+=====
+
+Make and display data charts using the (Google Chart API)[1].
+
+[1]: https://google-developers.appspot.com/chart/interactive/docs/reference
+
+
+To instantiate:
+---------------
+
+    chart = new Chart({
+
+      data (REQUIRED): 
+        A simple hash with just the properties 'rows' and 'columns'.
+        This is automatically transformed into a Google DataTable under the
+        hood.
+
+        rows:
+          Array of row arrays. (2D Array of data points)
+
+        columns:
+          Array of:
+            {
+              type: "string", "number", etc..
+              name: Column name
+            }
+
+      type (default 'bar'): 
+        chart type - 'pie', 'bar', 'line', etc.  `google.visualization`
+        should have a corresponding `<type>Chart` method.
+
+      container (default element with id 'chart'): 
+        The parent element for the chart <div>.
+
+      options (optional): 
+        Simple hash of options suitable for Google's draw() method.
+
+      classname (default 'chart'):
+        The element that actually contains the chart will have this class.
+        (This will be a direct child element of 'container'.)
+
+    })
+
+
+To actually draw a chart:
+----------------
+
+    chart.draw();
+
+
+SETUP:
+======
+
+* Load the google chart API: 
+    google.load('visualization', '1.0', {'packages':['corechart']});
+
+* Create charts within the callback: 
+    google.setOnLoadCallback(function {
+    var chart = new Chart(...);
+    chart.draw();
